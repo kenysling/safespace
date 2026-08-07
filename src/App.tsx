@@ -13,6 +13,7 @@ import { DisputeResolutionSection } from './components/DisputeResolutionSection'
 import { BusinessCanvasModal } from './components/BusinessCanvasModal';
 import { AiAssistantDrawer } from './components/AiAssistantDrawer';
 import { Footer } from './components/Footer';
+import { DisqusComments } from './components/DisqusComments';
 
 export function App() {
   const [activeTab, setActiveTab] = useState<'directory' | 'matching' | 'quote' | 'calculator' | 'dispute' | 'portal'>('directory');
@@ -109,6 +110,21 @@ export function App() {
             onSelectCompany={(company) => setSelectedCompany(company)}
           />
         )}
+
+        {/* Disqus Community Thread for Every Page */}
+        <section className="max-w-6xl mx-auto px-4 py-8">
+          <DisqusComments
+            pageUrl={`https://https-safespace-lemon-vercel-app.disqus.com/${activeTab}`}
+            pageIdentifier={`safespace-page-${activeTab}`}
+            title={`Community Discussion Forum — ${
+              activeTab === 'directory' ? 'Verified ID Directory' :
+              activeTab === 'matching' ? 'Smart Designer Matcher' :
+              activeTab === 'quote' ? 'Quotation Audit & Red Flag Detector' :
+              activeTab === 'calculator' ? 'Renovation Budget Calculator' :
+              activeTab === 'dispute' ? 'Pre-SCT Dispute Mediation & Escrow' : 'Homeowner Protection Portal'
+            }`}
+          />
+        </section>
 
       </main>
 
