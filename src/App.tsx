@@ -113,13 +113,11 @@ export function App() {
 
         {/* Disqus Community Thread on Home Page */}
         {activeTab === 'directory' && (
-          <section className="max-w-6xl mx-auto px-4 py-8">
-            <DisqusComments
-              pageUrl="https://https-safespace-lemon-vercel-app.disqus.com"
-              pageIdentifier="safespace-home-discussion"
-              title="Singapore Homeowner & Renovation Community Forum"
-            />
-          </section>
+          <DisqusComments
+            pageUrl="https://safespaceemma.vercel.app/"
+            pageIdentifier="safespace_renovation_discussion"
+            title="Community & Homeowner Discussions"
+          />
         )}
 
       </main>
