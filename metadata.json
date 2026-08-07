@@ -1,0 +1,6 @@
+{
+  "name": "Safe Space",
+  "description": "Singapore's Verified Interior Designer Discovery & Trust Platform with ACRA, HDB & CaseTrust verification, AI quote analysis, and dispute resolution.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
