@@ -32,7 +32,7 @@ export const DisqusComments: React.FC<DisqusCommentsProps> = ({
       this.page.identifier = identifier;
     };
 
-    const disqusEmbedUrl = 'https://https-safespace-lemon-vercel-app.disqus.com/embed.js';
+    const disqusEmbedUrl = 'https://health-disqus.disqus.com/embed.js';
 
     if (window.DISQUS) {
       // If Disqus is already loaded, reset it with new page config
@@ -48,6 +48,7 @@ export const DisqusComments: React.FC<DisqusCommentsProps> = ({
     } else {
       // Inject Disqus script
       const script = document.createElement('script');
+      script.id = 'disqus-embed-script';
       script.src = disqusEmbedUrl;
       script.setAttribute('data-timestamp', (+new Date()).toString());
       script.async = true;
@@ -58,7 +59,7 @@ export const DisqusComments: React.FC<DisqusCommentsProps> = ({
     if (!document.getElementById('dsq-count-scr')) {
       const countScript = document.createElement('script');
       countScript.id = 'dsq-count-scr';
-      countScript.src = '//https-safespace-lemon-vercel-app.disqus.com/count.js';
+      countScript.src = '//health-disqus.disqus.com/count.js';
       countScript.async = true;
       (document.head || document.body).appendChild(countScript);
     }
