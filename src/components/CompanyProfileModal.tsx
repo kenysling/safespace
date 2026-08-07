@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { CompanyProfile } from '../types';
+import { DisqusComments } from './DisqusComments';
 import {
   X,
   ShieldCheck,
@@ -15,6 +16,7 @@ import {
   Bookmark,
   BookmarkCheck,
   Lock,
+  MessageSquare,
 } from 'lucide-react';
 
 interface CompanyProfileModalProps {
@@ -34,7 +36,7 @@ export const CompanyProfileModal: React.FC<CompanyProfileModalProps> = ({
 }) => {
   if (!company) return null;
 
-  const [activeTab, setActiveTab] = useState<'OVERVIEW' | 'AI_REPORT' | 'PORTFOLIO' | 'REVIEWS'>('OVERVIEW');
+  const [activeTab, setActiveTab] = useState<'OVERVIEW' | 'AI_REPORT' | 'PORTFOLIO' | 'REVIEWS' | 'DISQUS'>('OVERVIEW');
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
   const getScoreColor = (score: number) => {
@@ -152,6 +154,18 @@ export const CompanyProfileModal: React.FC<CompanyProfileModalProps> = ({
           >
             <Star className="w-4 h-4 text-amber-500 fill-amber-500" />
             <span>Verified Reviews ({company.verifiedReviews.length})</span>
+          </button>
+
+          <button
+            onClick={() => setActiveTab('DISQUS')}
+            className={`py-3 border-b-2 transition-colors flex items-center gap-1.5 whitespace-nowrap ${
+              activeTab === 'DISQUS'
+                ? 'border-teal-600 text-teal-800'
+                : 'border-transparent text-slate-500 hover:text-slate-900'
+            }`}
+          >
+            <MessageSquare className="w-4 h-4 text-teal-600" />
+            <span>Disqus Community Q&A</span>
           </button>
         </div>
 
@@ -472,6 +486,15 @@ export const CompanyProfileModal: React.FC<CompanyProfileModalProps> = ({
               ))}
 
             </div>
+          )}
+
+          {/* TAB 5: DISQUS COMMUNITY Q&A */}
+          {activeTab === 'DISQUS' && (
+            <DisqusComments
+              pageUrl={`https://https-safespace-lemon-vercel-app.disqus.com/company/${company.id}`}
+              pageIdentifier={`company-${company.id}`}
+              title={`Community Discussion & Q&A for ${company.name}`}
+            />
           )}
 
         </div>

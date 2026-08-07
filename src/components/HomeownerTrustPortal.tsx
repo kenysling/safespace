@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { CompanyProfile } from '../types';
 import { CompanyCard } from './CompanyCard';
 import { BookmarkCheck, ShieldCheck, CheckCircle2, Upload, Star } from 'lucide-react';
+import { DisqusComments } from './DisqusComments';
 
 interface HomeownerTrustPortalProps {
   companies: CompanyProfile[];
@@ -184,6 +185,13 @@ export const HomeownerTrustPortal: React.FC<HomeownerTrustPortalProps> = ({
           </form>
         )}
       </div>
+
+      {/* SECTION 3: COMMUNITY DISQUS THREAD */}
+      <DisqusComments
+        pageUrl="https://https-safespace-lemon-vercel-app.disqus.com"
+        pageIdentifier="safespace-homeowner-discussions"
+        title="Singapore Homeowner & Renovation Community Forum (Disqus)"
+      />
 
     </section>
   );
