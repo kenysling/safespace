@@ -47,11 +47,10 @@ export const Hero: React.FC<HeroProps> = ({
         {/* Main Headline & Subtitle */}
         <div className="text-center max-w-3xl mx-auto mb-8">
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-slate-900 leading-tight">
-            Singapore's Assured <br className="hidden sm:inline" />
+            Find Renovation Professionals <br className="hidden sm:inline" />
             <span className="bg-gradient-to-r from-teal-700 via-teal-600 to-cyan-600 bg-clip-text text-transparent">
-              Renovation Intelligence
-            </span>{' '}
-            & Trust Directory
+              You Can Trust
+            </span>
           </h1>
           <p className="mt-4 text-sm sm:text-base text-slate-600 leading-relaxed font-normal">
             Verify interior designers & contractors in seconds before paying deposits. Live ACRA business history, HDB licenses, CaseTrust deposit escrow, and homeowner ownership-verified ratings.
