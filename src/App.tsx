@@ -111,20 +111,16 @@ export function App() {
           />
         )}
 
-        {/* Disqus Community Thread for Every Page */}
-        <section className="max-w-6xl mx-auto px-4 py-8">
-          <DisqusComments
-            pageUrl={`https://https-safespace-lemon-vercel-app.disqus.com/${activeTab}`}
-            pageIdentifier={`safespace-page-${activeTab}`}
-            title={`Community Discussion Forum — ${
-              activeTab === 'directory' ? 'Verified ID Directory' :
-              activeTab === 'matching' ? 'Smart Designer Matcher' :
-              activeTab === 'quote' ? 'Quotation Audit & Red Flag Detector' :
-              activeTab === 'calculator' ? 'Renovation Budget Calculator' :
-              activeTab === 'dispute' ? 'Pre-SCT Dispute Mediation & Escrow' : 'Homeowner Protection Portal'
-            }`}
-          />
-        </section>
+        {/* Disqus Community Thread on Home Page */}
+        {activeTab === 'directory' && (
+          <section className="max-w-6xl mx-auto px-4 py-8">
+            <DisqusComments
+              pageUrl="https://https-safespace-lemon-vercel-app.disqus.com"
+              pageIdentifier="safespace-home-discussion"
+              title="Singapore Homeowner & Renovation Community Forum"
+            />
+          </section>
+        )}
 
       </main>
 

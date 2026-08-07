@@ -5,6 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>SafeSpace — Singapore Interior Designer Discovery & Renovation Safety Platform</title>
     <script type="text/javascript">
+      window.addEventListener('error', function(e) {
+        if (e.message === 'Script error.' || e.message === 'Script error') {
+          e.preventDefault();
+          return true;
+        }
+      });
       (function(c,l,a,r,i,t,y){
           c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
           t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
@@ -17,4 +23,5 @@
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
+
 

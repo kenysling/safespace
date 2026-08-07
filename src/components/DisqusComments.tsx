@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { MessageSquare } from 'lucide-react';
+import React, { useEffect, useState } from 'react';
+import { MessageSquare, AlertCircle } from 'lucide-react';
 
 interface DisqusCommentsProps {
   pageUrl?: string;
@@ -21,6 +21,8 @@ export const DisqusComments: React.FC<DisqusCommentsProps> = ({
   pageIdentifier,
   title = 'Community & Homeowner Discussions',
 }) => {
+  const [loadError, setLoadError] = useState(false);
+
   useEffect(() => {
     const canonicalUrl = pageUrl || window.location.href;
     const identifier = pageIdentifier || window.location.pathname;
@@ -32,35 +34,45 @@ export const DisqusComments: React.FC<DisqusCommentsProps> = ({
       this.page.identifier = identifier;
     };
 
-    const disqusEmbedUrl = 'https://health-disqus.disqus.com/embed.js';
+    const disqusEmbedUrl = 'https://https-safespace-lemon-vercel-app.disqus.com/embed.js';
 
     if (window.DISQUS) {
-      // If Disqus is already loaded, reset it with new page config
-      window.DISQUS.reset({
-        reload: true,
-        config: function () {
-          // @ts-ignore
-          this.page.url = canonicalUrl;
-          // @ts-ignore
-          this.page.identifier = identifier;
-        },
-      });
+      try {
+        window.DISQUS.reset({
+          reload: true,
+          config: function () {
+            // @ts-ignore
+            this.page.url = canonicalUrl;
+            // @ts-ignore
+            this.page.identifier = identifier;
+          },
+        });
+      } catch (err) {
+        console.warn('Disqus reset error:', err);
+      }
     } else {
-      // Inject Disqus script
+      // Inject Disqus script safely
       const script = document.createElement('script');
       script.id = 'disqus-embed-script';
       script.src = disqusEmbedUrl;
       script.setAttribute('data-timestamp', (+new Date()).toString());
       script.async = true;
+      script.onerror = () => {
+        console.warn('Disqus script failed to load or was blocked by browser/adblocker.');
+        setLoadError(true);
+      };
       (document.head || document.body).appendChild(script);
     }
 
-    // Load count script if not present
+    // Load count script safely if not present
     if (!document.getElementById('dsq-count-scr')) {
       const countScript = document.createElement('script');
       countScript.id = 'dsq-count-scr';
-      countScript.src = '//health-disqus.disqus.com/count.js';
+      countScript.src = '//https-safespace-lemon-vercel-app.disqus.com/count.js';
       countScript.async = true;
+      countScript.onerror = () => {
+        console.warn('Disqus count script failed to load.');
+      };
       (document.head || document.body).appendChild(countScript);
     }
   }, [pageUrl, pageIdentifier]);
@@ -79,8 +91,28 @@ export const DisqusComments: React.FC<DisqusCommentsProps> = ({
         Share feedback, ask questions, and read community discussions regarding Singapore interior design firms, HDB renovation experiences, and quotation audits.
       </p>
 
-      {/* Disqus Thread Container */}
-      <div id="disqus_thread" className="min-h-[250px]" />
+      {/* Disqus Thread Container or Fallback */}
+      {loadError ? (
+        <div className="p-4 rounded-xl bg-amber-50 border border-amber-200 text-amber-900 text-xs flex items-center gap-3">
+          <AlertCircle className="w-5 h-5 text-amber-600 shrink-0" />
+          <div>
+            <span className="font-bold block">Community Comments Widget Notice</span>
+            <span>
+              Disqus comments widget was prevented from loading by an adblocker or privacy extension. You can join discussions directly on{' '}
+              <a
+                href="https://disqus.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline font-semibold text-amber-950"
+              >
+                Disqus Channel
+              </a>.
+            </span>
+          </div>
+        </div>
+      ) : (
+        <div id="disqus_thread" className="min-h-[250px]" />
+      )}
 
       <noscript>
         Please enable JavaScript to view the{' '}
@@ -91,3 +123,4 @@ export const DisqusComments: React.FC<DisqusCommentsProps> = ({
     </div>
   );
 };
+
